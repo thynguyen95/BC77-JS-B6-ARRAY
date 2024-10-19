@@ -128,3 +128,102 @@ for (let index = 0; index < arrayTagP.length; index++) {
   arrayText.push(text);
 }
 console.log("arrayText: ", arrayText);
+
+// các hàm duyệt mảng es6
+// trả về mảng mới, không làm ảnh hưởng mảng gốc
+// tham số phải đúng thứ tự
+
+// for of: trả về giá trị từng phần tử trong mảng
+let arrayName = ["Tiến", "Văn", "Hùng"];
+for (let name of arrayName) {
+  console.log("name: ", name);
+}
+
+// for in : trả ra index
+for (let index in arrayName) {
+  console.log("index: ", index, arrayName[index]);
+}
+
+// map
+let arrayAge = [10, 20, 30, 40, 50];
+let arrayAgeDouble = arrayAge.map(function (value, index) {
+  console.log("index: ", index, value);
+  return value * 2;
+});
+
+console.log("arrayAgeDouble", arrayAgeDouble);
+
+// forEach
+// không trả về mảng mới
+// không thể dừng hoặc thát vòng lặp giữa chừng(kể cả dừng với break, countinue )
+arrayAge.forEach((item, index) => {
+  console.log("item: ", item, index);
+});
+
+//------------------------------------------//
+let arrayNumber2 = [1, 4, 4, 6, 8, 2, 4, 7];
+
+document.querySelector("#array").innerHTML = `Array number : [${arrayNumber2}]`;
+
+const handleAddNumber = () => {
+  let number = +document.querySelector("#numberAdd").value;
+
+  arrayNumber2.push(number);
+
+  document.querySelector(
+    "#array"
+  ).innerHTML = `Array number : [${arrayNumber2}]`;
+};
+
+const hanldeDeleteNumber = () => {
+  // input: arrayNumber, số cần xóa
+  let number = +document.querySelector("#deleteAdd").value;
+
+  // progress:
+  //   1. duyệt mảng để tìm số cần xóa
+  //   2. tìm được số cần xóa thì dùng hàm splice để xóa đi phần tử đó
+
+  // cách 1:
+  // đặt cờ hiệu
+  let indexDel = -1;
+
+  for (let index = arrayNumber2.length; index > 0; index--) {
+    if (arrayNumber2[index] === number) {
+      indexDel = index;
+      arrayNumber2.splice(indexDel, 1);
+    }
+  }
+
+  if (indexDel === -1) {
+    console.log("Không có số này trong mảng");
+  } else {
+    console.log("số đã được xóa");
+  }
+
+  // end đặt cờ hiệu
+
+  // cách 2:
+  // let indexOfDel = arrayNumber2.indexOf(number);
+  // console.log("indexOfDel: ", indexOfDel);
+
+  // if (indexOfDel === -1) {
+  //   console.log("Không có số này trong mảng");
+  // } else {
+  //   arrayNumber2.splice(indexOfDel, 1);
+  //   console.log("số đã được xóa");
+  // }
+
+  // cách 3: dùng filter
+  let arrayNew = arrayNumber2.filter(function (numberDel) {
+    // index: đại diện cho từng phần tử trong mảng
+    console.log("index: ", numberDel);
+    return numberDel !== number;
+  });
+  console.log("arrayNew", arrayNew);
+
+  // output: cập nhật lại mảng ban đầu
+
+  document.querySelector(
+    "#array"
+  ).innerHTML = `Array number : [${arrayNumber2}]`;
+};

@@ -114,6 +114,85 @@ document.querySelector("#btnSVThapDiemNhat").onclick = () => {
 
   console.log("min", min);
   console.log("indexMin", indexMin);
+
+  // tìm tên sv có điểm thấp để in lên giao diện
+  let name = arrayTen[indexMin];
+
+  document.querySelector("#svYeuNhat").innerHTML = `${name} - ${min}`;
 };
 
 console.log("test", undefined === 6);
+
+// đếm số sv giỏi: sv có điểm từ 8 trở lên
+document.querySelector("#btnSoSVGioi").onclick = () => {
+  console.log("đếm số sv giỏi");
+
+  // input: arrayDiem
+
+  // progress:
+  //   yêu cầu điểm >= 8;
+  //   duyệt mảng
+
+  // cách 1:
+  // let count = 0;
+  // for (let index = 0; index < arrayDiem.length; index++) {
+  //   if (arrayDiem[index] >= 8) {
+  //     count++;
+  //   }
+  // }
+
+  // console.log("count", count);
+  // document.querySelector("#soSVGioi").innerHTML = count;
+
+  // cách 2
+  let arrayDiemThan8 = arrayDiem.filter(function (index) {
+    // index: đại diện cho từng phần tử trong mảng
+    console.log("index: ", index);
+    return index >= 8;
+  });
+
+  console.log("arrayDiemThan8", arrayDiemThan8);
+
+  document.querySelector(
+    "#soSVGioi"
+  ).innerHTML = `${arrayDiemThan8.length} - ${arrayDiemThan8}`;
+};
+
+// Danh sách sinh viên điểm TB lớn hơn 5
+document.querySelector("#btnSVDiemHon5").onclick = () => {
+  // input: arrayDiem, arrayTen
+  // progress:
+  //   1. kiểm tra sv nào có dtb > 5 => duyệt mảng điểm
+  //   2. dựa vào index của điểm để lấy ra tên
+  let output = "";
+  for (let index = 0; index < arrayDiem.length; index++) {
+    if (arrayDiem[index] > 5) {
+      // output += arrayTen[index] + " - " + arrayDiem[index] + " <br>";
+      output += `${arrayTen[index]} - ${arrayDiem[index]} <br>`;
+    }
+  }
+
+  // output:
+  //   Nguyễn Văn A - 5.5
+  //   Nguyễn Văn B - 6.5
+
+  console.log("output", output);
+  document.querySelector("#dsDiemHon5").innerHTML = output;
+};
+
+// sắp xếp tăng dần
+document.querySelector("#btnSapXepTang").onclick = () => {
+  // input: arrayDiem
+  // progress: dùng hàm sort
+  // [6.4, 8.2, 3.4, 9.8, 2.4, 1.4, 9.4]
+  // 6.4 --- 8.2
+  // pt1 --- pt2
+  let result = arrayDiem.sort(function (pt2, pt1) {
+    console.log("pt2", pt2, "pt1", pt1);
+    // pt2 - pt1 = số âm  => hoán vị (đổi vị trí)
+    // pt2 - pt1 = số dương => giữ nguyên
+    return pt2 - pt1;
+  });
+
+  console.log("result", result);
+};
